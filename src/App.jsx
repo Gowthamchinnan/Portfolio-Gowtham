@@ -33,7 +33,7 @@ function App() {
       <CursorGlow />
       <header className="header">
         <div className="portfolio-container header-nav">
-          <a href="/assets/Resume/Resume_CV.pdf" target="_blank" rel="noopener noreferrer" className="logo">
+          <a href="/assets/Resume/GOWTHAMC_CV.pdf" target="_blank" rel="noopener noreferrer" className="logo">
             Gowtham <FileText size={20} />
           </a>
           

@@ -65,7 +65,7 @@ const Hero = () => {
                         <h1 className="hero-title" style={{ marginBottom: '0.5rem' }}>
                             Hi, I'm <span style={{ color: 'var(--accent)' }}>Gowtham Chinnan</span>
                         </h1>
-                        <span className="hero-subtitle" style={{ display: 'block', marginBottom: '0.5rem' }}>Frontend Developer</span>
+                        <span className="hero-subtitle" style={{ display: 'block', marginBottom: '0.5rem' }}>Associate Support Engineer</span>
                         <p className="hero-tagline" style={{ fontSize: '1.25rem', color: '#cbd5e1', marginBottom: '2.5rem' }}>
                             Crafting the future of the web with precision and creativity.
                         </p>
