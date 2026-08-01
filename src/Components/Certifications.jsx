@@ -1,7 +1,14 @@
 import React from 'react';
-import { Award, BookOpen } from 'lucide-react';
+import SectionHeader from './SectionHeader';
+import { Award, BookOpen, GraduationCap } from 'lucide-react';
 
 const certs = [
+  {
+    title: 'Data Analyst with Python',
+    issuer: 'Elysium Academy',
+    icon: <GraduationCap size={24} />,
+    link: '#'
+  },
   {
     title: 'C and C++ Programming',
     issuer: 'Certified by SSI Technology',
@@ -20,7 +27,11 @@ const Certifications = () => {
   return (
     <section id="certifications" className="section animate-in" style={{ animationDelay: '0.7s', minHeight: 'auto', paddingBottom: '3rem' }}>
       <div style={{ width: '100%' }}>
-        <h2 className="section-title">Certifications & Achievements</h2>
+        <SectionHeader 
+          badge="📜 Credentials" 
+          title="Certifications & Achievements" 
+          subtitle="Verified technical training, professional certifications, and honors" 
+        />
         <div className="cert-grid">
           {certs.map((cert, idx) => (
             <div key={idx} className="cert-card">

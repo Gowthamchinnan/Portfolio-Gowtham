@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight, Sparkles, BarChart3 } from 'lucide-react';
 import { motion, useMotionValue, useSpring, useMotionTemplate } from "framer-motion";
 import profilePic from '../assets/Portfolioimage.JPG';
 
@@ -63,11 +63,13 @@ const Hero = () => {
                         </div>
 
                         <h1 className="hero-title" style={{ marginBottom: '0.5rem' }}>
-                            Hi, I'm <span style={{ color: 'var(--accent)' }}>Gowtham Chinnan</span>
+                            Hi, I'm <span style={{ color: 'var(--accent)' }}>Gowtham C</span>
                         </h1>
-                        <span className="hero-subtitle" style={{ display: 'block', marginBottom: '0.5rem' }}>Associate Support Engineer</span>
-                        <p className="hero-tagline" style={{ fontSize: '1.25rem', color: '#cbd5e1', marginBottom: '2.5rem' }}>
-                            Crafting the future of the web with precision and creativity.
+                        <span className="hero-subtitle" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem' }}>
+                            <BarChart3 size={20} style={{ color: 'var(--accent)' }} /> Data Analyst
+                        </span>
+                        <p className="hero-tagline">
+                            "Unlocking hidden patterns in data to drive smarter business decisions."
                         </p>
                         <div className="hero-actions" style={{ justifyContent: 'center' }}>
                             <a href="#projects" className="btn btn-primary">
@@ -108,7 +110,7 @@ const Hero = () => {
                     <div className="about-landscape-content">
                         <h3 className="about-title">About Me</h3>
                         <p className="about-text">
-                            MCA graduate with a passion for turning complex problems into elegant, user-centric interfaces. As a specialized <strong>Frontend & Web Developer</strong>, I don't just write code; I craft high-performance digital experiences. Whether I'm turning coffee into code or transforming bugs into "unplanned features," I’m dedicated to pixel-perfect precision and pushing the boundaries of what’s possible on the web.
+                            I am an aspiring Data Analyst pursuing an MCA, passionate about discovering insights from data and presenting them through interactive dashboards and visualizations. My technical skills include Microsoft Excel, SQL, Power BI, Python, and Tableau. I enjoy cleaning, analyzing, and transforming raw data into meaningful reports that support informed business decisions. I am continuously learning new tools and techniques to strengthen my analytical and business intelligence skills.
                         </p>
                     </div>
                 </motion.div>

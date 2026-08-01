@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionHeader from './SectionHeader';
 import { GraduationCap } from 'lucide-react';
 
 const education = [
@@ -20,7 +21,11 @@ const Education = () => {
   return (
     <section id="education" className="section animate-in" style={{ animationDelay: '0.5s' }}>
       <div style={{ width: '100%' }}>
-        <h2 className="section-title">Education Journey</h2>
+        <SectionHeader 
+          badge="🎓 Academics" 
+          title="Education Journey" 
+          subtitle="My academic foundation in computer applications and software engineering" 
+        />
         <div className="timeline-container">
           {education.map((item, idx) => (
             <div key={idx} className="timeline-item">

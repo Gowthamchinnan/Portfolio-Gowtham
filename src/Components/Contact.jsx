@@ -1,4 +1,5 @@
 import React from 'react';
+import SectionHeader from './SectionHeader';
 import { Mail } from 'lucide-react';
 
 const GithubIcon = ({ size }) => (
@@ -25,7 +26,11 @@ const Contact = () => {
   return (
     <section id="contact" className="section animate-in" style={{ animationDelay: '0.8s' }}>
       <div style={{ width: '100%' }}>
-        <h2 className="section-title">Get In Touch</h2>
+        <SectionHeader 
+          badge="📬 Contact Me" 
+          title="Get In Touch" 
+          subtitle="Let's connect! I am actively looking for Data Analyst and Software Engineering opportunities." 
+        />
         <div className="contact-content">
           <h3 style={{ fontSize: '1.75rem', marginBottom: '1rem', color: 'var(--text-h)' }}>
             Let's build something together
