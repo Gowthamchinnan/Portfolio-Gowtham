@@ -1,32 +1,60 @@
 :root {
-  --text: #e2e8f0;
+  --text: #cbd5e1;
   --text-h: #f8fafc;
-  --bg: #0f172a;
-  --bg-gradient-start: #0f172a;
-  --bg-gradient-end: #1e293b;
-  --border: rgba(255, 255, 255, 0.1);
-  --glass-bg: rgba(30, 41, 59, 0.7);
-  --glass-border: rgba(255, 255, 255, 0.05);
-  --accent: #8b5cf6;
-  --accent-hover: #a78bfa;
-  --accent-bg: rgba(139, 92, 246, 0.15);
-  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  --text-muted: #94a3b8;
+  --bg: #070b14;
+  --bg-gradient-start: #070b14;
+  --bg-gradient-end: #0f172a;
+  --border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(15, 23, 42, 0.75);
+  --glass-border: rgba(0, 242, 254, 0.15);
+  
+  /* Glowing Electric Cyan & Slate Gradient Palette */
+  --accent: #00f2fe;
+  --accent-cyan: #00f2fe;
+  --accent-blue: #3b82f6;
+  --accent-glow: rgba(0, 242, 254, 0.35);
+  --accent-hover: #38ef7d;
+  --accent-bg: rgba(0, 242, 254, 0.1);
+  --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
 
   --sans: 'Inter', system-ui, -apple-system, sans-serif;
   --heading: 'Outfit', 'Inter', system-ui, sans-serif;
   --tech-font: 'Space Grotesk', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
-  font: 16px/1.5 var(--sans);
+  font: 16px/1.6 var(--sans);
   color: var(--text);
-  background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
+  background: radial-gradient(circle at 50% 0%, #0d1b2a 0%, #070b14 70%);
   background-attachment: fixed;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Ensure proper interactive hand pointer cursor across all controls & cards */
+button, 
+a, 
+.bento-project-card, 
+.mode-pill, 
+.filter-btn, 
+.profile-image-box, 
+.social-link, 
+.social-icon-btn, 
+.open-icon-btn,
+.view-details-link {
+  cursor: pointer !important;
 }
 
 #root {
@@ -39,13 +67,14 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
   color: var(--text-h);
   margin-top: 0;
-  font-weight: 600;
+  font-weight: 700;
+  letter-spacing: -0.02em;
 }
 
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.25s ease;
 }
 
 a:hover {
@@ -61,8 +90,18 @@ a:hover {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
+  50% { box-shadow: 0 0 30px rgba(0, 242, 254, 0.5); }
+}
+
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
 .animate-in {
-  animation: fadeIn 0.8s ease-out forwards;
+  animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 /* Scrollbar styling */
@@ -73,9 +112,9 @@ a:hover {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #1e293b;
   border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: var(--accent);
 }

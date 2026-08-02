@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Folder, Menu, X } from 'lucide-react';
 import Hero from './Components/Hero';
+import MetricsBar from './Components/MetricsBar';
 import Projects from './Components/Projects';
 import Skills from './Components/Skills';
 import Education from './Components/Education';
@@ -25,7 +26,7 @@ function App() {
       }
 
       // Determine current visible section
-      const sections = ['home', 'projects', 'skills', 'education', 'contact'];
+      const sections = ['home', 'projects', 'skills', 'education', 'certifications', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (const sectionId of sections) {
@@ -68,7 +69,7 @@ function App() {
       <CursorGlow />
       <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="portfolio-container header-nav">
-          <a href="/assets/Resume/GOWTHAMC_CV.pdf" target="_blank" rel="noopener noreferrer" className="logo">
+          <a href="/assets/Resume/Gowtham_data.pdf" target="_blank" rel="noopener noreferrer" className="logo">
             Gowtham <Folder size={20} />
           </a>
           
@@ -99,6 +100,7 @@ function App() {
 
       <main className="portfolio-container" style={{ paddingTop: '80px' }}>
         <Hero />
+        <MetricsBar />
         <Projects />
         <Skills />
         <Education />
@@ -107,10 +109,11 @@ function App() {
       </main>
 
       <footer style={{ textAlign: 'center', padding: '3rem 0', color: '#64748b', fontSize: '0.9rem', borderTop: '1px solid rgba(255, 255, 255, 0.05)' }}>
-        <p>© {new Date().getFullYear()} Gowtham Chinnan. Crafted with Precision & Code.</p>
+        <p>© {new Date().getFullYear()} Gowtham C. Crafted with Precision & Code.</p>
       </footer>
     </>
   );
 }
 
 export default App;
+
