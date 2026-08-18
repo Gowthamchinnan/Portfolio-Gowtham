@@ -1900,26 +1900,70 @@
 .project-card-image-box {
   position: relative;
   width: 100%;
-  height: 210px;
+  aspect-ratio: 16 / 10;
+  min-height: 210px;
   overflow: hidden;
   background: #070b14;
+  border-bottom: 1px solid rgba(0, 242, 254, 0.12);
 }
 
 .project-card-image-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: top center;
   transition: transform 0.6s ease;
+  display: block;
 }
 
 .bento-project-card:hover .project-card-image-box img {
-  transform: scale(1.06);
+  transform: scale(1.04);
 }
 
 .project-image-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, transparent 40%, rgba(15, 23, 42, 0.95) 100%);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.05) 0%, transparent 40%, transparent 85%, rgba(7, 11, 20, 0.45) 100%);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.bento-project-card:hover .project-image-overlay {
+  background: rgba(0, 242, 254, 0.03);
+}
+
+.project-image-expand-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: rgba(7, 11, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  color: #00f2fe;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.25s ease;
+  z-index: 5;
+}
+
+.bento-project-card:hover .project-image-expand-btn {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.project-image-expand-btn:hover {
+  background: #00f2fe;
+  color: #070b14;
+  box-shadow: 0 0 14px rgba(0, 242, 254, 0.6);
 }
 
 .project-category-badge {
@@ -2162,19 +2206,60 @@
 .modal-top-image {
   position: relative;
   width: 100%;
-  height: 280px;
+  background: #050811;
+  border-bottom: 1px solid rgba(0, 242, 254, 0.2);
+  overflow: hidden;
+  cursor: zoom-in;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.85rem 1rem;
 }
 
 .modal-top-image img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  max-height: 440px;
+  object-fit: contain;
+  border-radius: 12px;
+  display: block;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s ease;
+}
+
+.modal-top-image:hover img {
+  transform: scale(1.015);
 }
 
 .modal-image-overlay {
+  display: none;
+}
+
+.modal-image-hint {
   position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, transparent 50%, #0f172a 100%);
+  bottom: 18px;
+  right: 20px;
+  background: rgba(7, 11, 20, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(0, 242, 254, 0.35);
+  color: #00f2fe;
+  font-size: 0.76rem;
+  font-weight: 600;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  pointer-events: none;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+  transition: all 0.25s ease;
+}
+
+.modal-top-image:hover .modal-image-hint {
+  background: #00f2fe;
+  color: #070b14;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
 }
 
 .modal-category {
@@ -2188,6 +2273,130 @@
   font-weight: 700;
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   FULL RESOLUTION DASHBOARD VIEWER / LIGHTBOX
+   ========================================================================== */
+.lightbox-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(3, 6, 14, 0.96);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  z-index: 100001;
+  display: flex;
+  flex-direction: column;
+  padding: 1.25rem 2rem;
+}
+
+.lightbox-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.85rem;
+  flex-shrink: 0;
+  gap: 1rem;
+}
+
+.lightbox-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.lightbox-badge {
+  background: rgba(0, 242, 254, 0.15);
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  color: #00f2fe;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.lightbox-title-wrap h3 {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  margin: 0;
+}
+
+.lightbox-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lightbox-btn {
+  background: rgba(15, 23, 42, 0.8);
+  border: 1px solid rgba(0, 242, 254, 0.25);
+  color: #e2e8f0;
+  padding: 0.45rem 0.85rem;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.lightbox-btn:hover {
+  background: #00f2fe;
+  color: #070b14;
+  border-color: #00f2fe;
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.35);
+}
+
+.lightbox-close-btn {
+  background: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+  color: #f87171;
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: 0.4rem;
+}
+
+.lightbox-close-btn:hover {
+  background: #ef4444;
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.lightbox-image-container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: auto;
+  border-radius: 18px;
+  background: #040813;
+  border: 1px solid rgba(0, 242, 254, 0.2);
+  padding: 1.25rem;
+  position: relative;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.8);
+}
+
+.lightbox-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 10px;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.9);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  image-rendering: -webkit-optimize-contrast;
 }
 
 .modal-content-body {
@@ -2479,7 +2688,16 @@
   }
 
   .project-card-image-box {
-    height: 170px;
+    aspect-ratio: 16 / 10;
+    min-height: 180px;
+    height: auto;
+  }
+
+  .project-image-expand-btn {
+    opacity: 1;
+    transform: none;
+    font-size: 0.68rem;
+    padding: 0.25rem 0.6rem;
   }
 
   .project-card-body {
@@ -2529,7 +2747,27 @@
   }
 
   .modal-top-image {
-    height: 200px;
+    max-height: 240px;
+    padding: 0.5rem;
+  }
+
+  .modal-top-image img {
+    max-height: 230px;
+  }
+
+  .lightbox-backdrop {
+    padding: 0.75rem;
+  }
+
+  .lightbox-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+
+  .lightbox-controls {
+    width: 100%;
+    justify-content: space-between;
   }
 
   .modal-content-body {

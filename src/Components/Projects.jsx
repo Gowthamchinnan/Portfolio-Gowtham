@@ -10,7 +10,11 @@ import {
   Wrench, 
   Lightbulb, 
   ArrowUpRight,
-  Zap
+  Zap,
+  Maximize2,
+  ZoomIn,
+  ZoomOut,
+  RotateCcw
 } from 'lucide-react';
 
 const GithubIcon = ({ size = 18, className = "" }) => (
@@ -37,6 +41,21 @@ const caseStudies = [
     links: {
       github: 'https://github.com/Gowthamchinnan/UPI-Transaction-Dashboard'
     }
+  },
+  {
+    id: 'hr-dashboard',
+    title: 'HR Data Dashboard',
+    category: 'Data Analytics & BI',
+    image: '/assets/images/hr_dashboard.png',
+    desc: 'Designed an interactive Tableau HR analytics dashboard to visualize workforce demographics, monitor attrition rates, and evaluate department performance with calculated fields and dynamic filters.',
+    tags: ['Tableau', 'HR Analytics', 'Data Visualization', 'Calculated Fields', 'Interactive Dashboard', 'Workforce Analytics'],
+    star: {
+      problem: 'HR leadership lacked centralized visibility into employee attrition patterns, department-wise turnover, and key workforce demographics.',
+      tools: ['Tableau Desktop', 'Data Modeling', 'Calculated Fields', 'Interactive Filters', 'KPI Scorecards'],
+      insight: 'Developed comprehensive visual analytics with dynamic drill-downs and attrition KPI trackers, uncovering core turnover trends across salary and tenure bands.',
+      result: 'Data-Driven Workforce Intelligence & Retention Trend Visibility'
+    },
+    links: {}
   },
   {
     id: 'esp32-auth',
@@ -93,6 +112,8 @@ const caseStudies = [
 const Projects = () => {
   const [selectedStudy, setSelectedStudy] = useState(null);
   const [activeFilter, setActiveFilter] = useState('All');
+  const [previewImage, setPreviewImage] = useState(null);
+  const [zoomLevel, setZoomLevel] = useState(1);
 
   const categories = ['All', 'Data Analytics & BI', 'Cloud & Web Platforms', 'IoT & Security'];
 
@@ -102,9 +123,17 @@ const Projects = () => {
 
   useEffect(() => {
     const handleKeyDown = (e) => {
-      if (e.key === 'Escape') setSelectedStudy(null);
+      if (e.key === 'Escape') {
+        if (previewImage) {
+          setPreviewImage(null);
+          setZoomLevel(1);
+        } else if (selectedStudy) {
+          setSelectedStudy(null);
+        }
+      }
     };
-    if (selectedStudy) {
+
+    if (selectedStudy || previewImage) {
       document.documentElement.style.overflow = 'hidden';
       document.body.style.overflow = 'hidden';
       window.addEventListener('keydown', handleKeyDown);
@@ -112,12 +141,13 @@ const Projects = () => {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
     }
+
     return () => {
       document.documentElement.style.overflow = '';
       document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [selectedStudy]);
+  }, [selectedStudy, previewImage]);
 
   return (
     <section id="projects" className="section animate-in" style={{ animationDelay: '0.3s' }}>
@@ -161,6 +191,18 @@ const Projects = () => {
                 {study.status === 'Ongoing' && (
                   <span className="project-status-badge">Ongoing</span>
                 )}
+                <button
+                  type="button"
+                  className="project-image-expand-btn"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setPreviewImage({ src: study.image, title: study.title, category: study.category });
+                    setZoomLevel(1);
+                  }}
+                  title="View Full High-Res Dashboard"
+                >
+                  <Maximize2 className="w-3.5 h-3.5" /> <span>Full Image</span>
+                </button>
               </div>
 
               {/* Card Content & STAR Format Preview */}
@@ -233,7 +275,7 @@ const Projects = () => {
         </div>
       </div>
 
-      {/* Expanded Modal Deep-Dive Window using React Portal to render floating centered on document body */}
+      {/* Expanded Modal Deep-Dive Window using React Portal */}
       {typeof document !== 'undefined' && ReactDOM.createPortal(
         <AnimatePresence>
           {selectedStudy && (
@@ -259,13 +301,22 @@ const Projects = () => {
                   <X className="w-5 h-5" />
                 </button>
 
-                <div className="modal-top-image">
+                <div 
+                  className="modal-top-image"
+                  onClick={() => {
+                    setPreviewImage({ src: selectedStudy.image, title: selectedStudy.title, category: selectedStudy.category });
+                    setZoomLevel(1);
+                  }}
+                  title="Click to view full high-resolution dashboard"
+                >
                   <img src={selectedStudy.image} alt={selectedStudy.title} />
-                  <div className="modal-image-overlay" />
                   <span className="modal-category">{selectedStudy.category}</span>
                   {selectedStudy.status === 'Ongoing' && (
                     <span className="project-status-badge" style={{ top: '20px', right: '70px' }}>Ongoing</span>
                   )}
+                  <div className="modal-image-hint">
+                    <Maximize2 className="w-3.5 h-3.5" /> Full Image View
+                  </div>
                 </div>
 
                 <div className="modal-content-body">
@@ -309,7 +360,18 @@ const Projects = () => {
 
                   {/* Action Buttons */}
                   <div className="modal-actions-row">
-                    {selectedStudy.links.github && (
+                    <button
+                      type="button"
+                      className="btn-glow-primary"
+                      onClick={() => {
+                        setPreviewImage({ src: selectedStudy.image, title: selectedStudy.title, category: selectedStudy.category });
+                        setZoomLevel(1);
+                      }}
+                    >
+                      <Maximize2 className="w-4 h-4" /> View Full Image
+                    </button>
+
+                    {selectedStudy.links?.github && (
                       <a
                         href={selectedStudy.links.github}
                         target="_blank"
@@ -330,6 +392,94 @@ const Projects = () => {
                 </div>
               </motion.div>
             </div>
+          )}
+        </AnimatePresence>,
+        document.body
+      )}
+
+      {/* Fullscreen High-Resolution Dashboard Lightbox Viewer Portal */}
+      {typeof document !== 'undefined' && ReactDOM.createPortal(
+        <AnimatePresence>
+          {previewImage && (
+            <motion.div 
+              key="lightbox-backdrop"
+              className="lightbox-backdrop"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={() => {
+                setPreviewImage(null);
+                setZoomLevel(1);
+              }}
+            >
+              <div className="lightbox-header" onClick={(e) => e.stopPropagation()}>
+                <div className="lightbox-title-wrap">
+                  <span className="lightbox-badge">{previewImage.category || 'Dashboard'}</span>
+                  <h3>{previewImage.title} — Full Resolution View</h3>
+                </div>
+                <div className="lightbox-controls">
+                  <button
+                    type="button"
+                    className="lightbox-btn"
+                    onClick={() => setZoomLevel(prev => Math.min(prev + 0.25, 2.5))}
+                    title="Zoom In"
+                  >
+                    <ZoomIn className="w-4 h-4" /> Zoom In
+                  </button>
+                  <button
+                    type="button"
+                    className="lightbox-btn"
+                    onClick={() => setZoomLevel(prev => Math.max(prev - 0.25, 0.75))}
+                    title="Zoom Out"
+                  >
+                    <ZoomOut className="w-4 h-4" /> Zoom Out
+                  </button>
+                  <button
+                    type="button"
+                    className="lightbox-btn"
+                    onClick={() => setZoomLevel(1)}
+                    title="Reset Zoom"
+                  >
+                    <RotateCcw className="w-4 h-4" /> {Math.round(zoomLevel * 100)}%
+                  </button>
+                  <a
+                    href={previewImage.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="lightbox-btn"
+                    title="Open Original Image in New Tab"
+                  >
+                    <ExternalLink className="w-4 h-4" /> Open Original
+                  </a>
+                  <button
+                    type="button"
+                    className="lightbox-close-btn"
+                    onClick={() => {
+                      setPreviewImage(null);
+                      setZoomLevel(1);
+                    }}
+                    aria-label="Close Lightbox"
+                  >
+                    <X className="w-5 h-5" />
+                  </button>
+                </div>
+              </div>
+
+              <div 
+                className="lightbox-image-container"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <img 
+                  src={previewImage.src} 
+                  alt={previewImage.title} 
+                  style={{ 
+                    transform: `scale(${zoomLevel})`,
+                    transformOrigin: 'center center'
+                  }}
+                />
+              </div>
+            </motion.div>
           )}
         </AnimatePresence>,
         document.body
