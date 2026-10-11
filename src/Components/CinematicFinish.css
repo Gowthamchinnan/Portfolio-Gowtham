@@ -1,0 +1,31 @@
+/* Final chapter: connect the existing cyan identity with a quieter cinema palette. */
+body { background: radial-gradient(ellipse at 80% 0%, #12304366, transparent 35%), #080c14; }
+.portfolio-container { width: 100%; max-width: 1280px; margin-inline: auto; padding-inline: clamp(1.25rem, 3vw, 2.5rem); }
+.header-nav { padding-inline: 0; }
+:is(a, button, input, textarea, select, iframe):focus-visible { outline: 3px solid #8cecf3; outline-offset: 4px; }
+button { font-family: inherit; }
+.skip-to-content { position: fixed; top: 1rem; left: 1rem; z-index: 20000; padding: .8rem 1rem; border-radius: 8px; color: #07131c; background: #8cecf3; transform: translateY(-200%); }
+.skip-to-content:focus { transform: none; }
+.cinematic-hero-label { color: #8cecf3; font-size: .75rem; font-weight: 700; letter-spacing: .16em; margin: 0 0 1rem; }
+.header, .header.scrolled { background: #0b131ee8; border-color: #8cecf326; box-shadow: 0 12px 35px #0005; }
+.nav-link.active { background: #8cecf31a; border-color: #8cecf355; box-shadow: none; }
+.hero-section { scroll-margin-top: 110px; }
+.section { padding: 4.5rem 0; }
+.section + .section::before { content: ''; display: block; height: 1px; width: 100%; position: absolute; top: 0; background: linear-gradient(90deg, transparent, #8cecf330, transparent); }
+.section-badge { color: #8cecf3; background: #8cecf30d; border-color: #8cecf333; box-shadow: none; font-size: .72rem; }
+.section-title { background: none; -webkit-text-fill-color: #f1f6fc; color: #f1f6fc; filter: none; letter-spacing: -.035em; }
+.section-title-divider { background: linear-gradient(90deg, transparent, #8cecf3, transparent); box-shadow: none; height: 2px; }
+.section-title-divider::after { display: none; }
+.viewer-switch { background: #102231ee; min-height: 44px; }
+.btn-glass-outline { font: inherit; }
+.mobile-menu-toggle { position: relative; z-index: 1001; min-width: 44px; min-height: 44px; }
+.mobile-menu-overlay { height: 100dvh; overflow-y: auto; padding: 80px 1rem 2rem; }
+.mobile-nav { gap: clamp(.7rem, 3dvh, 1.5rem); }
+@media (hover: hover) and (pointer: fine) { .resume-cinema-art { transition: transform .35s ease; } .resume-cinema-section:hover .resume-cinema-art { transform: rotate(0); } }
+@media (max-width: 1000px) and (min-width: 768px) { .nav-link { padding: .4rem .65rem; } }
+@media (max-width: 767px) { .section { padding: 3rem 0; } .viewer-switch { right: 12px; bottom: max(12px, env(safe-area-inset-bottom)); } footer { padding-bottom: 6rem !important; } .cinematic-hero-label { font-size: .65rem; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .resume-cinema-art, .resume-cinema-section:hover .resume-cinema-art { transform: none; }
+}

@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useReducedMotion } from 'framer-motion';
 
 const CursorGlow = () => {
+  const reducedMotion = useReducedMotion();
   const glowRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     // Detect touch device - disable custom cursor glow on touch screens for max performance
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    if (reducedMotion || window.matchMedia('(pointer: coarse)').matches) {
       return;
     }
 
@@ -47,7 +49,7 @@ const CursorGlow = () => {
       document.removeEventListener('mouseleave', handleMouseLeave);
       cancelAnimationFrame(animationFrameId);
     };
-  }, [isVisible]);
+  }, [isVisible, reducedMotion]);
 
   return (
     <div
@@ -63,7 +65,7 @@ const CursorGlow = () => {
         pointerEvents: 'none',
         userSelect: 'none',
         zIndex: 9999,
-        opacity: isVisible ? 1 : 0,
+        opacity: isVisible && !reducedMotion ? 1 : 0,
         transition: 'opacity 0.4s ease',
         willChange: 'transform',
       }}
