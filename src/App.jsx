@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Folder, Menu, X } from 'lucide-react';
 import Hero from './Components/Hero';
+import DataSeriesIntro from './Components/DataSeriesIntro';
 import MetricsBar from './Components/MetricsBar';
 import Projects from './Components/Projects';
 import Skills from './Components/Skills';
@@ -66,6 +67,7 @@ function App() {
 
   return (
     <>
+      <DataSeriesIntro />
       <CursorGlow />
       <header className={`header ${isScrolled ? 'scrolled' : ''}`}>
         <div className="portfolio-container header-nav">
