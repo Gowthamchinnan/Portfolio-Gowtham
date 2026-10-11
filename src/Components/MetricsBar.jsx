@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Database, LayoutDashboard, Target, Zap, Sliders, Filter } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useReducedMotion } from 'framer-motion';
 
 const MODES = [
   { id: 'raw', name: 'Raw Ingestion', multiplier: 1, label: 'Standard Pipeline Metrics' },
@@ -9,14 +9,15 @@ const MODES = [
 ];
 
 const MetricsBar = () => {
+  const reducedMotion = useReducedMotion();
   const [activeMode, setActiveMode] = useState('cleaned');
   const [counts, setCounts] = useState({ rows: 0, dashboards: 0, accuracy: 0 });
 
   const currentMode = MODES.find((m) => m.id === activeMode) || MODES[1];
 
   useEffect(() => {
-    let start = 0;
-    const duration = 1200;
+    let frame;
+    const duration = reducedMotion ? 0 : 1200;
     const startTime = performance.now();
 
     const targetRows = 10 * currentMode.multiplier;
@@ -25,7 +26,7 @@ const MetricsBar = () => {
 
     const animateCounters = (now) => {
       const elapsed = now - startTime;
-      const progress = Math.min(elapsed / duration, 1);
+      const progress = duration === 0 ? 1 : Math.min(elapsed / duration, 1);
 
       // Ease out cubic
       const easeProgress = 1 - Math.pow(1 - progress, 3);
@@ -37,12 +38,13 @@ const MetricsBar = () => {
       });
 
       if (progress < 1) {
-        requestAnimationFrame(animateCounters);
+        frame = requestAnimationFrame(animateCounters);
       }
     };
 
-    requestAnimationFrame(animateCounters);
-  }, [activeMode]);
+    frame = requestAnimationFrame(animateCounters);
+    return () => cancelAnimationFrame(frame);
+  }, [currentMode.multiplier, reducedMotion]);
 
   return (
     <section className="metrics-section">

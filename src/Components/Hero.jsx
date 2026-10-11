@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
-import { ArrowRight, Sparkles, Download, CheckCircle2 } from 'lucide-react';
-import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate } from "framer-motion";
+import { ArrowRight, Sparkles, FileText, CheckCircle2 } from 'lucide-react';
+import { motion, useMotionValue, useSpring, useTransform, useMotionTemplate, useReducedMotion } from "framer-motion";
 import profilePic from '../assets/Portfolioimage.JPG';
 
 const Hero = () => {
+  const reducedMotion = useReducedMotion();
   // Mouse tilt animation states
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -20,15 +21,17 @@ const Hero = () => {
   const background = useMotionTemplate`radial-gradient(650px circle at ${dx}px ${dy}px, rgba(0, 242, 254, 0.12), transparent 80%)`;
 
   useEffect(() => {
+    if (reducedMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const handleMouseMove = (e) => {
       mouseX.set(e.clientX);
       mouseY.set(e.clientY);
     };
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [mouseX, mouseY]);
+  }, [mouseX, mouseY, reducedMotion]);
 
   const handleCardMouseMove = (e) => {
+    if (reducedMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     const rect = e.currentTarget.getBoundingClientRect();
     const centerX = rect.left + rect.width / 2;
     const centerY = rect.top + rect.height / 2;
@@ -67,6 +70,7 @@ const Hero = () => {
               <span>Available for Data Analyst Roles</span>
             </div>
 
+            <p className="cinematic-hero-label">GOWTHAM ORIGINAL · THE DATA SERIES</p>
             <h1 className="hero-headline">
               Transforming Complex Data into{' '}
               <span className="gradient-text-cyan">Actionable Business Insights</span>
@@ -81,14 +85,14 @@ const Hero = () => {
                 Explore Case Studies <ArrowRight className="w-4 h-4" />
               </a>
 
-              <a
-                href="/assets/Resume/Gowtham_data.pdf"
-                target="_blank"
-                rel="noopener noreferrer"
+              <button
+                type="button"
+                aria-haspopup="dialog"
+                onClick={() => window.dispatchEvent(new Event('gowtham:open-resume'))}
                 className="btn-glass-outline"
               >
-                <Download className="w-4 h-4" /> Download Resume
-              </a>
+                <FileText className="w-4 h-4" /> View Resume
+              </button>
             </div>
 
             <div className="hero-quick-highlights">
@@ -116,7 +120,7 @@ const Hero = () => {
           >
             <motion.div
               className="profile-card-wrapper"
-              style={{ rotateX, rotateY }}
+              style={reducedMotion ? {} : { rotateX, rotateY }}
             >
               {/* Outer Glowing Aura */}
               <div className="profile-aura" />

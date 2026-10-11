@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import SectionHeader from './SectionHeader';
+import './ProjectEpisodes.css';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ExternalLink, 
@@ -151,11 +152,12 @@ const Projects = () => {
 
   return (
     <section id="projects" className="section animate-in" style={{ animationDelay: '0.3s' }}>
-      <div className="projects-bento-container">
+      <div className="projects-bento-container project-episodes">
+        <div className="episode-eyebrow"><span className="episode-live-dot"/> GOWTHAM ORIGINALS <span className="episode-divider"/> SEASON 01</div>
         <SectionHeader 
-          badge="📊 Projects"
-          title="Featured Projects" 
-          subtitle="Explore data analytics dashboards, cloud cost tools, IoT security, and web platforms." 
+          badge="▶ Now Streaming"
+          title="The Project Episodes" 
+          subtitle="Five real-world stories across analytics, cloud, security, and development. Select an episode to discover the challenge, tools, and results." 
         />
 
         {/* Filter Pills */}
