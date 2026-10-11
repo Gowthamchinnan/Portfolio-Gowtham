@@ -1,0 +1,6 @@
+.project-episodes{position:relative;isolation:isolate}.project-episodes:before{content:"";position:absolute;inset:-30px -15px auto;height:300px;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at 50% 0%,rgba(34,211,238,.1),transparent 70%)}
+.episode-eyebrow{display:flex;align-items:center;gap:11px;flex-wrap:wrap;margin-bottom:20px;font-size:11px;font-weight:800;letter-spacing:.19em;color:#91ecf3}.episode-live-dot{width:8px;height:8px;background:#67e8f9;border-radius:100%;box-shadow:0 0 17px #67e8f9}.episode-divider{height:14px;width:1px;background:#ffffff50}
+.project-episodes .bento-project-card{border:1px solid rgba(120,220,240,.16);transition:transform .28s ease,border-color .28s ease,box-shadow .28s ease;overflow:hidden}
+.project-episodes .bento-project-card:hover{transform:translateY(-7px);border-color:rgba(120,230,240,.68);box-shadow:0 20px 55px rgba(0,0,0,.4),0 0 24px rgba(40,210,240,.09)}
+.project-episodes .project-card-image-box img{transition:transform .5s ease}.project-episodes .bento-project-card:hover .project-card-image-box img{transform:scale(1.045)}
+@media(prefers-reduced-motion:reduce){.project-episodes .bento-project-card,.project-episodes .project-card-image-box img{transition:none}.project-episodes .bento-project-card:hover{transform:none}}
